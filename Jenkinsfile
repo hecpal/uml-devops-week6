@@ -12,9 +12,6 @@ podTemplate(containers: [
         container('gradle') {
           stage('Build a gradle project') {
             echo "I am the ${env.BRANCH_NAME} branch"
-            sh '''
-            cd Chapter08/sample1
-            '''
         }
         stage('Code coverage') {
           echo "My CC branch is: ${env.BRANCH_NAME}"
