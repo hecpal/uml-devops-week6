@@ -8,20 +8,23 @@ podTemplate(containers: [
   ]) {
     node(POD_LABEL) {
       stage('Run pipeline against a gradle project - test MAIN') {
-    git branch: 'main', url: 'https://github.com/hecpal/uml-devops-week6.git'
-      container('gradle') {
-        stage('Build a gradle project') {
-          echo "I am the ${env.BRANCH_NAME} branch"
+        git branch: 'main', url: 'https://github.com/hecpal/uml-devops-week6.git'
+        container('gradle') {
+          stage('Build a gradle project') {
+            echo "I am the ${env.BRANCH_NAME} branch"
+            sh '''
+            cd Chapter08/sample1
+            '''
         }
         stage('Code coverage') {
           echo "My CC branch is: ${env.BRANCH_NAME}"
           if (env.BRANCH_NAME == "main") {
             echo "I am the ${env.BRANCH_NAME} branch"
-            steps {
-                 sh "chmod +x gradlew"
-                 sh "./gradlew jacocoTestReport"
-                 sh "./gradlew jacocoTestCoverageVerification"
-            } 
+            sh '''
+            sh "chmod +x gradlew"
+            sh "./gradlew jacocoTestReport"
+            sh "./gradlew jacocoTestCoverageVerification"
+            '''             
           }
         }
      }
