@@ -17,11 +17,11 @@ podTemplate(containers: [
           echo "My CC branch is: ${env.BRANCH_NAME}"
           if (env.BRANCH_NAME == "main") {
             echo "I am the ${env.BRANCH_NAME} branch"
-            sh '''
-            sh "chmod +x gradlew"
-            sh "./gradlew jacocoTestReport"
-            sh "./gradlew jacocoTestCoverageVerification"
-            '''             
+            steps {
+              sh "chmod +x gradlew"
+              sh "./gradlew jacocoTestReport"
+              sh "./gradlew jacocoTestCoverageVerification"
+            }             
           }
         }
      }
